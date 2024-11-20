@@ -45,8 +45,8 @@ local function TurnOnESP(Tank:Model)
 
 			print(Tank.Name.. " friendly")
 
-			hg.OutlineColor = Color3.fromRGB(0, 179, 255)
-			Text.TextColor3 = Color3.fromRGB(0, 179, 255)
+			hg.OutlineColor = Color3.fromRGB(20, 152, 0)
+			Text.TextColor3 = Color3.fromRGB(20, 152, 0)
 
 		else
 			print(Tank.Name.. " enemy")
