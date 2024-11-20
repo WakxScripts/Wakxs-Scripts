@@ -1,0 +1,117 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Main = OrionLib:MakeWindow({Name = "MTC4 v0.01  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "MTC4"})
+
+local Players = game.Players
+local Player = Players.LocalPlayer
+
+local TanksFolder = workspace:WaitForChild("SpawnedVehicles")
+local CharactersFolder = workspace:WaitForChild("SpawnedPlayers")
+
+local function TurnOnESP(Tank:Model)
+	
+	if Tank.Name == "DONOT" then
+
+	else
+		
+		local Owner:ObjectValue = Tank:FindFirstChild("Owner")
+		
+		if Owner then
+			print(Owner.Value.Name)
+		else
+			print("No Owner Value")
+		end
+		
+		
+
+		local hg = Instance.new("Highlight", Tank)
+		hg.Name = "HGESP"
+		hg.FillTransparency = 1
+		hg.OutlineTransparency = 0
+
+
+		local GUI = Instance.new("BillboardGui", Tank.PrimaryPart)
+		GUI.Name = "ESPGUI"
+		GUI.StudsOffsetWorldSpace = Vector3.new(0,10,0)
+		GUI.Size = UDim2.new(0, 50,0, 50)
+		GUI.AlwaysOnTop = true
+
+		local Text = Instance.new("TextLabel", GUI)
+		Text.Size = UDim2.fromScale(1,1)
+		Text.BackgroundTransparency = 1
+		Text.Text = Tank.Name
+		Text.TextScaled = true
+
+		if Owner.Value.Team == Player.Team then
+
+			print(Tank.Name.. " friendly")
+
+			hg.OutlineColor = Color3.fromRGB(0, 179, 255)
+			Text.TextColor3 = Color3.fromRGB(0, 179, 255)
+
+		else
+			print(Tank.Name.. " enemy")
+
+			hg.OutlineColor = Color3.fromRGB(255, 0, 0)
+			Text.TextColor3 = Color3.fromRGB(255, 0, 0)
+		end
+	end
+
+end
+
+local function TurnOffESP(Tank:Model)
+	if Tank.Name == "DONOT" then
+
+	else
+		print(Tank.Name)
+
+		local GUI:BillboardGui = Tank.PrimaryPart:FindFirstChild("ESPGUI")
+		local hg:Highlight = Tank:FindFirstChild("HGESP")
+		if hg then
+			hg:Destroy()
+		end
+		if GUI then
+			GUI:Destroy()
+		end
+
+
+
+	end
+end
+
+local Tab = Main:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "Tank's esp | Off And On To Update Tanks",
+	Default = false,
+	Callback = function(Value)
+		if Value == true then
+			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
+				TurnOnESP(Tank)
+			end
+		else
+			
+			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
+				TurnOffESP(Tank)
+			end
+		end
+	end    
+})
+
+Tab:AddSlider({
+	Name = "Walk Speed",
+	Min = 16,
+	Max = 45,
+	Default = 16,
+	Color = Color3.fromRGB(255, 0, 0),
+	Increment = 1,
+	ValueName = "Walk Speed",
+	Callback = function(Value)
+		Player.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = Value
+	end    
+})
+
+OrionLib:Init()
