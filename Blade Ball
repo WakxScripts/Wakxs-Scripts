@@ -9,7 +9,7 @@ local CharactersFolder = workspace:WaitForChild("SpawnedPlayers")
 
 local Tab = Main:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://89728202307832",
+	Icon = "http://www.roblox.com/asset/?id=13060262529",
 	PremiumOnly = false
 })
 
