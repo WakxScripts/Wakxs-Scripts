@@ -10,8 +10,8 @@ local Tab = Main:MakeTab({
 })
 
 
-Tab:AddTogle({
-	Name = "This is a toggle!",
+Tab:AddToggle({
+	Name = "Parry",
 	Default = false,
 	Callback = function(Value)
 		print(Value)
