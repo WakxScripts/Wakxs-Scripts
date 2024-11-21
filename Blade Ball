@@ -6,6 +6,7 @@ local Player = Players.LocalPlayer
 
 local Tab = Main:MakeTab({
 	Name = "Main",
+	Icon = 'rbxassetid://4483345998',
 	PremiumOnly = false
 })
 
