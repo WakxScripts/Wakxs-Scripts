@@ -14,4 +14,12 @@ local Tab = Main:MakeTab({
 })
 
 
+Tab:AddTogle({
+	Name = "This is a toggle!",
+	Default = false,
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+
 OrionLib:Init()
