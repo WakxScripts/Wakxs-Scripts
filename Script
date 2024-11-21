@@ -180,13 +180,13 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		if Value == true then
-			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
-				TurnOnPlayerESP(Tank)
+			for i, Character:Model in pairs(CharactersFolder:GetChildren()) do
+				TurnOnPlayerESP(Character)
 			end
 		else
 
-			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
-				TurnOffPlayerESP(Tank)
+			for i, Character:Model in pairs(CharactersFolder:GetChildren()) do
+				TurnOffPlayerESP(Character)
 			end
 		end
 	end    
