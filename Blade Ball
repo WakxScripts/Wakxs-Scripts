@@ -1,12 +1,11 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Main = OrionLib:MakeWindow({Name = "Blade Ball  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "Blade Ball Wakx"})
+local Main = OrionLib:MakeWindow({Name = "Blade Ball  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "Blade Ball Wakx", IntroEnabled = false, })
 
 local Players = game.Players
 local Player = Players.LocalPlayer
 
 local Tab = Main:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://13060262529",
 	PremiumOnly = false
 })
 
