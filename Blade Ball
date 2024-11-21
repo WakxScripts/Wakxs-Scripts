@@ -4,9 +4,6 @@ local Main = OrionLib:MakeWindow({Name = "Blade Ball  |  Wakx", HidePremium = fa
 local Players = game.Players
 local Player = Players.LocalPlayer
 
-local TanksFolder = workspace:WaitForChild("SpawnedVehicles")
-local CharactersFolder = workspace:WaitForChild("SpawnedPlayers")
-
 local Tab = Main:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://13060262529",
