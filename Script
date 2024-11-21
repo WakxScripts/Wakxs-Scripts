@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Main = OrionLib:MakeWindow({Name = "MTC4 v0.01  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "MTC4"})
+local Main = OrionLib:MakeWindow({Name = "MTC4 v0.03  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "MTC4"})
 
 local Players = game.Players
 local Player = Players.LocalPlayer
