@@ -11,7 +11,7 @@ local tankESP = false
 local playerESP = false
 local Speed = 16
 
-local function TurnOnTankESP(Tank:Model)
+local function TurnOnTankESP(Tank:Model, TeamColor)
 	
 	if Tank.Name == "DONOT" then
 
@@ -44,19 +44,21 @@ local function TurnOnTankESP(Tank:Model)
 		Text.BackgroundTransparency = 1
 		Text.Text = Tank.Name
 		Text.TextScaled = true
-
+		
+		local plr:Player = Owner.Value
+		
 		if Owner.Value.Team == Player.Team then
 
 			print(Tank.Name.. " friendly")
 
-			hg.OutlineColor = Color3.fromRGB(20, 152, 0)
-			Text.TextColor3 = Color3.fromRGB(20, 152, 0)
+			hg.OutlineColor = plr.TeamColor.Color
+			Text.TextColor3 = plr.TeamColor.Color
 
 		else
 			print(Tank.Name.. " enemy")
 
-			hg.OutlineColor = Color3.fromRGB(255, 0, 0)
-			Text.TextColor3 = Color3.fromRGB(255, 0, 0)
+			hg.OutlineColor = plr.TeamColor.Color
+			Text.TextColor3 = plr.TeamColor.Color
 		end
 		
 		tankESP = true
