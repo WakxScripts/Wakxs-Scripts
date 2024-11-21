@@ -152,6 +152,7 @@ local function TurnOffTankESP(Tank:Model)
 	end
 end
 
+
 local Tab = Main:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://4483345998",
@@ -165,11 +166,18 @@ Tab:AddToggle({
 		if Value == true then
 			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
 				TurnOnTankESP(Tank)
+				repeat
+					TurnOffTankESP(Tank)
+					TurnOnTankESP(Tank)
+				until Value == false
 			end
 		else
 			
 			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
 				TurnOffTankESP(Tank)
+				repeat
+					TurnOffTankESP(Tank)
+				until Value == true
 			end
 		end
 	end    
