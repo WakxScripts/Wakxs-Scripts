@@ -26,4 +26,4 @@ local Window = UI:CreateWindow({
 	},
 })
 
-local Tab = Window:CreateTab("Main", "house") -- Title, Image
+local Tab = Window:CreateTab("Main", 0) -- Title, Image
