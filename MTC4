@@ -1,219 +1,27 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Main = OrionLib:MakeWindow({Name = "MTC4 v0.03  |  Wakx", HidePremium = false, SaveConfig = false, ConfigFolder = "MTC4"})
+local Module = script:FindFirstChild("UILib")
+local UI
 
-local Players = game.Players
-local Player = Players.LocalPlayer
+if Module then UI = require(Module) else UI = loadstring(game:HttpGet('https://sirius.menu/rayfield'))() end
 
-local TanksFolder = workspace:WaitForChild("SpawnedVehicles")
-local CharactersFolder = workspace:WaitForChild("SpawnedPlayers")
+local Window = UI:CreateWindow({
+	Name = "MTC4",
+	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+	LoadingTitle = "Wakx's Script Loading",
+	LoadingSubtitle = "by Wakx",
+	Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
-local tankESP = false
-local playerESP = false
-local Speed = 16
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 
-local function TurnOnTankESP(Tank:Model, TeamColor)
-	
-	if Tank.Name == "DONOT" then
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = "Wakx Scripts", -- Create a custom folder for your hub/game
+		FileName = "MTC4"
+	},
 
-	else
-		
-		local Owner:ObjectValue = Tank:FindFirstChild("Owner")
-		
-		if Owner then
-			print(Owner.Value.Name)
-		else
-			print("No Owner Value")
-		end
-		
-		
-
-		local hg = Instance.new("Highlight", Tank)
-		hg.Name = "HGESP"
-		hg.FillTransparency = 1
-		hg.OutlineTransparency = 0
-
-
-		local GUI = Instance.new("BillboardGui", Tank.PrimaryPart)
-		GUI.Name = "ESPGUI"
-		GUI.StudsOffsetWorldSpace = Vector3.new(0,10,0)
-		GUI.Size = UDim2.new(0, 50,0, 50)
-		GUI.AlwaysOnTop = true
-
-		local Text = Instance.new("TextLabel", GUI)
-		Text.Size = UDim2.fromScale(1,1)
-		Text.BackgroundTransparency = 1
-		Text.Text = Tank.Name
-		Text.TextScaled = true
-		
-		local plr:Player = Owner.Value
-		
-		if Owner.Value.Team == Player.Team then
-
-			print(Tank.Name.. " friendly")
-
-			hg.OutlineColor = plr.TeamColor.Color
-			Text.TextColor3 = plr.TeamColor.Color
-
-		else
-			print(Tank.Name.. " enemy")
-
-			hg.OutlineColor = plr.TeamColor.Color
-			Text.TextColor3 = plr.TeamColor.Color
-		end
-		
-		tankESP = true
-		
-	end
-
-end
-
-local function TurnOnPlayerESP(Character:Model)
-
-	if Character.Name == "DONOT" then
-	elseif Character == Player.Character then
-		
-	else
-		
-		local ESPPlayer = Players:GetPlayerFromCharacter(Character)
-		
-		local hg = Instance.new("Highlight", Character)
-		hg.Name = "HGESP"
-		hg.FillTransparency = 1
-		hg.OutlineTransparency = 0
-
-
-		local GUI = Instance.new("BillboardGui", Character.PrimaryPart)
-		GUI.Name = "ESPGUI"
-		GUI.StudsOffsetWorldSpace = Vector3.new(0,4,0)
-		GUI.Size = UDim2.new(0, 25,0, 25)
-		GUI.AlwaysOnTop = true
-
-		local Text = Instance.new("TextLabel", GUI)
-		Text.Size = UDim2.fromScale(1,1)
-		Text.BackgroundTransparency = 1
-		Text.Text = Character.Name
-		Text.TextScaled = true
-
-		if ESPPlayer.Team == Player.Team then
-
-			print(Character.Name.. " friendly")
-
-			hg.OutlineColor = Color3.fromRGB(20, 152, 0)
-			Text.TextColor3 = Color3.fromRGB(20, 152, 0)
-
-		else
-			print(Character.Name.. " enemy")
-
-			hg.OutlineColor = Color3.fromRGB(255, 0, 0)
-			Text.TextColor3 = Color3.fromRGB(255, 0, 0)
-		end
-
-		tankESP = true
-
-	end
-
-end
-
-local function TurnOffPlayerESP(Character:Model)
-	if Character.Name == "DONOT" then
-
-	else
-		print(Character.Name)
-
-		local GUI:BillboardGui = Character.PrimaryPart:FindFirstChild("ESPGUI")
-		local hg:Highlight = Character:FindFirstChild("HGESP")
-		if hg then
-			hg:Destroy()
-		end
-		if GUI then
-			GUI:Destroy()
-		end
-
-		tankESP = false
-
-	end
-end
-
-local function TurnOffTankESP(Tank:Model)
-	if Tank.Name == "DONOT" then
-
-	else
-		print(Tank.Name)
-
-		local GUI:BillboardGui = Tank.PrimaryPart:FindFirstChild("ESPGUI")
-		local hg:Highlight = Tank:FindFirstChild("HGESP")
-		if hg then
-			hg:Destroy()
-		end
-		if GUI then
-			GUI:Destroy()
-		end
-		
-		tankESP = false
-		
-	end
-end
-
-
-local Tab = Main:MakeTab({
-	Name = "Main",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-Tab:AddToggle({
-	Name = "Vehicles esp | Off And On To Update",
-	Default = false,
-	Callback = function(Value)
-		if Value == true then
-			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
-				TurnOnTankESP(Tank)
-				repeat
-					TurnOffTankESP(Tank)
-					TurnOnTankESP(Tank)
-				until Value == false
-			end
-		else
-			
-			for i, Tank:Model in pairs(TanksFolder:GetChildren()) do
-				TurnOffTankESP(Tank)
-				repeat
-					TurnOffTankESP(Tank)
-				until Value == true
-			end
-		end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Players | Off And On To Update",
-	Default = false,
-	Callback = function(Value)
-		if Value == true then
-			for i, Character:Model in pairs(CharactersFolder:GetChildren()) do
-				TurnOnPlayerESP(Character)
-			end
-		else
-
-			for i, Character:Model in pairs(CharactersFolder:GetChildren()) do
-				TurnOffPlayerESP(Character)
-			end
-		end
-	end    
-})
-
-Tab:AddSlider({
-	Name = "Walk Speed",
-	Min = 16,
-	Max = 45,
-	Default = 16,
-	Color = Color3.fromRGB(255, 0, 0),
-	Increment = 1,
-	ValueName = "Walk Speed",
-	Callback = function(Value)
-		Speed = Value
-		Player.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = Value
-	end    
-})
-
-OrionLib:Init()
+	Discord = {
+		Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+		Invite = "https://discord.gg/NFVgUmrN", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+		RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+	},
+})	
