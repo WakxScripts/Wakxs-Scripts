@@ -3,7 +3,6 @@ local UI
 
 if Module then UI = require(Module) else UI = loadstring(game:HttpGet('https://sirius.menu/rayfield'))() end
 
-
 local Window = UI:CreateWindow({
 	Name = "MTC4 | Wakx Scripts | 0.01",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -25,4 +24,6 @@ local Window = UI:CreateWindow({
 		Invite = "https://discord.gg/NFVgUmrN", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
 		RememberJoins = true -- Set this to false to make them join the discord every time they load it up
 	},
-})	
+})
+
+local Tab = Window:CreateTab("Main", "house") -- Title, Image
