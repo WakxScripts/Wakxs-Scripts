@@ -4,7 +4,7 @@ local UI
 if Module then UI = require(Module) else UI = loadstring(game:HttpGet('https://sirius.menu/rayfield'))() end
 
 local Window = UI:CreateWindow({
-	Name = "MTC4",
+	Name = "MTC4 | Wakx Scripts | 0.01",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "Wakx's Script Loading",
 	LoadingSubtitle = "by Wakx",
