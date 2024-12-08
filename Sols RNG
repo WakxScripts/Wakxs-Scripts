@@ -2,14 +2,15 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Map:Folder = workspace.Map
 local WakxFolder = Instance.new("Folder")
+WakxFolder.Parent = workspace
 WakxFolder.Name = "WakxFolder"
 
 local Bridge = Instance.new("Part")
+Bridge.Anchored = true
 Bridge.Size = Vector3.new(6.709, 1, 179.452)
 Bridge.CFrame = CFrame.new(503.862, 137.174, -240.389)
 Bridge.Rotation = Vector3.new(-25, 55, 0)
 Bridge.Parent = WakxFolder
-Bridge.Anchored = true
 
 -- Variables
 local ItemESP = false
@@ -35,6 +36,8 @@ local function CreateESP(Item:Instance)
             text.BackgroundTransparency = 1
             text.TextScaled = true
             text.Text = item.Name
+            text.TextStrokeTransparency = 0
+            text.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
             if item.Name == "Pumpkin" then
                 text.TextColor3 = Color3.fromRGB(255, 111, 45)
                 text.Text = "Pumpkin"
@@ -52,9 +55,12 @@ local function CreateESP(Item:Instance)
 end
 
 Map.ChildAdded:Connect(function(child)
-     if ItemESP == true then
-        CreateESP(child)
-     end
+    if ItemESP == false then
+        print("ESP value = false, ESP didnt created")
+        return
+    else
+         CreateESP(child)
+    end
  end)
 
 
@@ -101,6 +107,7 @@ local ItemESPToggle = Main:CreateToggle({
     Flag = "ItemESP", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
         ItemESP = Value
+        print(ItemESP)
         if Value == true then
             for i,v in pairs(Map:GetChildren()) do
                 CreateESP(v)
@@ -119,6 +126,9 @@ local ItemESPToggle = Main:CreateToggle({
 local DestroyButton = Misc:CreateButton({
     Name = "Destroy UI",
     Callback = function()
+
+        ItemESP = false
+
         WakxFolder:Destroy()
         Rayfield:Destroy()
     end,
