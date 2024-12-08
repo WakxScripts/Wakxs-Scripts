@@ -6,7 +6,8 @@ WakxFolder.Name = "WakxFolder"
 
 local Bridge = Instance.new("Part")
 Bridge.Size = Vector3.new(6.709, 1, 179.452)
-Bridge.CFrame = CFrame.new(503.862, 137.174, -240.389, -25, 55, 0)
+Bridge.CFrame = CFrame.new(503.862, 137.174, -240.389)
+Bridge.Rotation = Vector3.new(-25, 55, 0)
 Bridge.Parent = WakxFolder
 
 -- Variables
